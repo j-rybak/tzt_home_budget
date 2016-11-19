@@ -1,0 +1,70 @@
+extends ../layout
+
+block content
+  h1= title
+  .container
+    .row
+      .col-xs-12
+        .success(style="display:none;")
+          +alert-ix-warning(" Usunięto zakup")
+        .error(style="display:none;")
+          +alert-ix-danger(" Błąd podczas usuwania danych ")
+        .loadingIndicator.text-center(style="display:none;")
+          +fa-icon-primary("spinner","5x", "fa-spin")
+    .row.contentContainer
+      .col-xs-12
+        if purchases.length
+          table.table(class="table-stripped")
+            thead
+              tr
+                th Data
+                th Nazwa
+                th Kategoria
+                th Cena
+            tbody
+              each purchase in purchases
+                tr
+                  - var date = new Date(purchase.id*1000);
+                  - date = moment(date).format("YYYY/MM/DD HH:mm:ss")
+                  td #{date}
+                  td #{purchase.name}
+                  td #{purchase.category}
+                  td #{purchase.price}
+                  td
+                    a.btn(class="btn-sm btn-success",href="/budget/purchases/#{purchase.id}")
+                      +fa-icon("edit")
+                    a.btn(class="btn-sm btn-danger",href="javascript:deletePurchase('#{purchase.id}')")
+                      +fa-icon("remove")
+        else
+          +alert-warning("Brak zakupów")
+
+      .col-xs-12
+        a.btn(class="btn-info pull-right",href='/budget/purchases/add')
+          +fa-icon("plus")
+          |  Dodaj
+      .col-xs-12
+        | &nbsp;
+append scripts
+  script.
+    var deletePurchase = function(categoryName){
+      $('.contentContainer').hide();
+      $('.loadingIndicator').show();
+      var callback = function (response) {
+        $('.loadingIndicator').hide();
+        $('.success').show();
+        setTimeout(function () {
+          location.reload();
+        }, 1500);
+      }
+      var errorCallback = function (error) {
+        $('.loadingIndicator').hide();
+        $('.error').show();
+      }
+      $.ajax({
+        url: '/budget/purchases/'+categoryName,
+        type: 'DELETE',
+        success: callback || $.noop,
+        error: errorCallback || $.noop
+      });
+    }
+

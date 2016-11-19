@@ -1,0 +1,62 @@
+extends ../layout
+
+append head
+    script(src="/bower_components/ckeditor/ckeditor.js")
+
+block content
+    h1= title
+    .jumbotron
+        .success(style="display:none;")
+            +alert-ix-success(" Zmiany zostały zapisane")
+        .error(style="display:none;")
+            +alert-ix-danger(" Błąd podczas zapisywania danych ")
+        .formContainer
+            form(id="form" name="page_content_edit", method="post", action='#{key}/update')
+
+                textarea(id="page_#{key}", name=key)
+                    | !{value}
+                .row
+                    .col-xs-12
+                        | &nbsp;
+                    .col-xs-12
+                        button.btn(class="btn-primary pull-right",type="submit")
+                            +fa-icon("save")
+                            |  Zapisz
+
+        .loadingIndicator.text-center(style="display:none;")
+            +fa-icon-primary("spinner","5x", "fa-spin")
+
+append scripts
+    script(src="/javascripts/jquery.form.min.js")
+    script.
+        CKEDITOR.config.allowedContent = true;
+        CKEDITOR.replace( "page_#{key}", {
+            toolbar: 'Full',
+        });
+        $('#form').submit(function () {
+            $('.formContainer').hide();
+            $('.loadingIndicator').show();
+            $('#page_#{key}').val(CKEDITOR.instances['page_#{key}'].getData());
+            $(this).ajaxSubmit(function (response) {
+                $('.loadingIndicator').hide();
+                $('.formContainer').show();
+                if (response.value=='OK'){
+                    $('.success').show();
+
+                    setTimeout(function () {
+                        $('.success').fadeOut('slow');
+                    }, 1500);
+                }
+                else{
+                    $('.error').show();
+
+                    setTimeout(function () {
+                        $('.error').fadeOut('slow');
+                    }, 1500);
+                }
+
+
+            });
+            return false;
+        });
+

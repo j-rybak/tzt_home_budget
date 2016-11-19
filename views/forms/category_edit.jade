@@ -1,0 +1,23 @@
+extends ../layout
+
+
+block content
+    h1= title
+    .jumbotron
+        .container
+            .formContainer.row
+
+                form.form-horizontal.col-xs-12(id="form" name="category-edit", method="post", action='/budget/categories/add')
+                    .form-group
+                        label(for="category") Kategoria
+                        input.form-control(type="text",id="category",placeholder="Podaj nazwę kategorii",name="category", required="required")
+                    .form-group
+                        button.btn(class="btn-primary pull-right",type="submit")
+                            +fa-icon("save")
+                            |  Zapisz
+            .loadingIndicator.text-center(style="display:none;")
+                +fa-icon-primary("spinner","5x", "fa-spin")
+
+
+
+

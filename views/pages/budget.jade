@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+    h1= title
+    .container
+        .h3="Ostatnie zakupy"
+        .jumbotron
+            .row
+                .col-xs-12
+                if lastPurchases.length
+                    each purchase in lastPurchases
+                        .col-xs-12
+                            +fa-icon("check")
+                            |   #{purchase}
+                else
+                    h5="Jeszcze nic nie kupiłeś"
+
+        .h3="Akcje"
+        .jumbotron
+            .row
+                .col-sm-3
+                    a.btn(class="btn-success ",href='/budget/categories/')
+                        +fa-icon("list")
+                        |  Kategorie
+                .col-sm-3
+                    a.btn(class="btn-success ",href='/budget/categories/add')
+                        +fa-icon("plus")
+                        |  Dodaj kategorię
+                .col-sm-3
+                    a.btn(class="btn-primary ",href='/budget/purchases/')
+                        +fa-icon("list")
+                        |  Zakupy
+                .col-sm-3
+                    a.btn(class="btn-primary ",href='/budget/purchases/add')
+                        +fa-icon("plus")
+                        |  Dodaj zakup

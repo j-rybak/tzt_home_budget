@@ -1,0 +1,23 @@
+{
+  "name": "home_budget",
+  "description": "",
+  "main": "",
+  "authors": [
+    "j-rybak <jacek.rybak@keycode.pl>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "ckeditor": "^4.5.11",
+    "font-awesome": "fontawesome#^4.7.0"
+  }
+}

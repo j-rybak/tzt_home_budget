@@ -1,0 +1,41 @@
+extends ../layout
+
+
+block content
+    h1= title
+    .jumbotron
+        .container
+            .formContainer.row
+                -var action = purchase.id ? '/budget/purchases/'+purchase.id : '/budget/purchases/add'
+                if categories.length
+                    form.form-horizontal.col-xs-12(id="form" name="purchase-edit", method="post", action=action)
+                        .form-group
+                            label(for="name") Nazwa
+                            input.form-control(type="text",id="name",placeholder="Podaj nazwę zakupu",name="name", required="required", value='#{purchase.name}')
+                        .form-group
+                            label(for="category") Kategoria
+                            select.form-control(id="category",name="category", required="required",value='#{purchase.category}')
+                                option(selected=purchase.category == "")
+                                each category in categories
+                                    option(selected=purchase.category == category) #{category}
+                        .form-group
+                            label(for="price") Cena
+                            input.form-control(type="number",id="price",placeholder="Cena",name="price", required="required", min="0", step="0.01", value='#{purchase.price}')
+                        .form-group
+                            button.btn(class="btn-primary pull-right",type="submit")
+                                +fa-icon("save")
+                                |  Zapisz
+                else
+                    +alert-warning("Brak kategorii. Zanim dodasz zakup, dodaj kategorię.")
+                    .row
+                        .col-xs-12.text-center
+                            a.btn(class="btn-info ",href='/budget/categories/add')
+                                +fa-icon("plus")
+                                |  Dodaj kategorię
+
+            .loadingIndicator.text-center(style="display:none;")
+                +fa-icon-primary("spinner","5x", "fa-spin")
+
+
+
+

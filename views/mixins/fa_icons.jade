@@ -1,0 +1,29 @@
+mixin fa-icon(name,size, classes)
+    - size = size || '1x'
+    - classes = classes || ""
+    span.fa(class="fa-#{name} fa-#{size} #{classes}",aria-hidden="true")
+
+mixin fa-icon-primary(name,size, classes)
+    - size = size || '1x'
+    - classes = classes || ""
+    span.fa.text-primary(class="fa-#{name} fa-#{size} #{classes}",aria-hidden="true")
+
+mixin fa-icon-info(name,size, classes)
+    - size = size || '1x'
+    - classes = classes || ""
+    span.fa.text-info(class="fa-#{name} fa-#{size} #{classes}",aria-hidden="true")
+
+mixin fa-icon-warning(name,size, classes)
+    - size = size || '1x'
+    - classes = classes || ""
+    span.fa.text-warning(class="fa-#{name} fa-#{size} #{classes}",aria-hidden="true")
+
+mixin fa-icon-danger(name,size, classes)
+    - size = size || '1x'
+    - classes = classes || ""
+    span.fa.text-danger(class="fa-#{name} fa-#{size} #{classes}",aria-hidden="true")
+
+mixin fa-icon-success(name,size, classes)
+    - size = size || '1x'
+    - classes = classes || ""
+    span.fa.text-success(class="fa-#{name} fa-#{size} #{classes}",aria-hidden="true")

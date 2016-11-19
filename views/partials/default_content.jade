@@ -1,0 +1,8 @@
+//- Including Icon mixins
+include ../mixins/fa_icons
+
+div.editableContent
+    div!=content
+    div.editIcon
+        a(href='/page_editor/#{key}')
+            +fa-icon-primary("edit","3x")
